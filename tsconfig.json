@@ -7,6 +7,9 @@
       "@assets/*": [
         "./src/assets/*"
       ],
+      "@contexts/*": [
+        "./src/contexts/*"
+      ],
       "@components/*": [
         "./src/components/*"
       ],
