@@ -4,6 +4,7 @@ import { KeyboardAvoidingView, Platform, Text } from "react-native";
 
 import { Container } from "@components/Container";
 
+import { Login } from "./components/Login";
 import { Register } from "../Auth/components/Register";
 
 import logoImg from "@assets/logo.png";
@@ -22,7 +23,7 @@ export function Auth() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         {showLogin ? (
-          <Text>Login</Text>
+          <Login changeScreen={changeScreen} />
         ) : (
           <Register changeScreen={changeScreen} />
         )}

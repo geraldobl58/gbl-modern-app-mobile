@@ -8,15 +8,15 @@ import { useFormik } from "formik";
 
 import * as Yup from "yup";
 
-import { userRegister } from "@services/user";
+import { userLogin } from "@services/user";
 
 import { Content, Box, ButtonCustom } from "./styles";
 
-type RegisterProps = {
+type LoginProps = {
   changeScreen: () => void;
 };
 
-export function Register({ changeScreen }: RegisterProps) {
+export function Login({ changeScreen }: LoginProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const toast = useToast();
@@ -27,13 +27,12 @@ export function Register({ changeScreen }: RegisterProps) {
     onSubmit: async (formData: any) => {
       setIsLoading(true);
       try {
-        await userRegister(formData).then((response) => {
+        await userLogin(formData).then((response) => {
           console.log(response.data);
-          changeScreen();
         });
       } catch (error) {
         setIsLoading(false);
-        toast.show("Houve um erro ao salvar o registro.", {
+        toast.show("Login/Usuário inválido.", {
           type: "warning",
           placement: "top",
           duration: 4000,
@@ -48,20 +47,13 @@ export function Register({ changeScreen }: RegisterProps) {
     <Content>
       <Box>
         <TextInput
-          label="E-mail"
-          onChangeText={(value) => formik.setFieldValue("email", value)}
-          value={formik.values.email}
-          error={Boolean(formik.errors.email)}
+          label="E-mail/Usuário"
+          onChangeText={(value) => formik.setFieldValue("identifier", value)}
+          value={formik.values.identifier}
+          error={Boolean(formik.errors.identifier)}
         />
       </Box>
-      <Box>
-        <TextInput
-          label="Usuário"
-          onChangeText={(value) => formik.setFieldValue("username", value)}
-          value={formik.values.username}
-          error={Boolean(formik.errors.username)}
-        />
-      </Box>
+
       <Box>
         <TextInput
           label="Senha"
@@ -71,29 +63,19 @@ export function Register({ changeScreen }: RegisterProps) {
           error={Boolean(formik.errors.password)}
         />
       </Box>
-      <Box>
-        <TextInput
-          label="Confirmar senha"
-          secureTextEntry
-          onChangeText={(value) =>
-            formik.setFieldValue("repeatPassword", value)
-          }
-          value={formik.values.repeatPassword}
-          error={Boolean(formik.errors.repeatPassword)}
-        />
-      </Box>
+
       <Box>
         <ButtonCustom
           loading={isLoading}
           mode="contained"
           onPress={() => formik.handleSubmit()}
         >
-          Enviar
+          Acessar
         </ButtonCustom>
       </Box>
       <Box>
         <Button mode="text" onPress={changeScreen}>
-          Já tenho conta
+          Ainda não tem conta? Registre-se
         </Button>
       </Box>
     </Content>
@@ -102,20 +84,14 @@ export function Register({ changeScreen }: RegisterProps) {
 
 function initialValues() {
   return {
-    email: "",
-    username: "",
+    identifier: "",
     password: "",
-    repeatPassword: "",
   };
 }
 
 function validationSchema() {
   return {
-    email: Yup.string().email().required(),
-    username: Yup.string().required(),
+    identifier: Yup.string().required(),
     password: Yup.string().required(),
-    repeatPassword: Yup.string()
-      .required()
-      .oneOf([Yup.ref("password")]),
   };
 }
