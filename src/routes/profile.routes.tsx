@@ -29,6 +29,7 @@ export function ProfileRoutes() {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
