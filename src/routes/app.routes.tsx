@@ -7,9 +7,8 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { Home } from "@screens/Home";
 import { Favorites } from "@screens/Favorites";
 import { Cart } from "@screens/Cart";
-import { Profile } from "@screens/Profile";
 
-import { useTheme } from "styled-components/native";
+import { ProfileRoutes } from "./profile.routes";
 
 type AppRoutesProps = {
   home: undefined;
@@ -40,12 +39,12 @@ function setIcon(route: any, routeStatus: any) {
       break;
   }
 
-  return <FontAwesomeIcon name={iconName} style={{ fontSize: 20 }} />;
+  return (
+    <FontAwesomeIcon name={iconName} color="#4300af" style={{ fontSize: 20 }} />
+  );
 }
 
 export function AppRoutes() {
-  const { COLORS } = useTheme();
-
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -68,7 +67,7 @@ export function AppRoutes() {
         />
         <Tab.Screen
           name="profile"
-          component={Profile}
+          component={ProfileRoutes}
           options={{ title: "Perfil" }}
         />
       </Tab.Navigator>
