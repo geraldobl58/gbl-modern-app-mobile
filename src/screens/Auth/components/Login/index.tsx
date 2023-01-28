@@ -52,6 +52,7 @@ export function Login({ changeScreen }: LoginProps) {
       <Box>
         <TextInput
           label="E-mail/Usuário"
+          autoCapitalize="none"
           onChangeText={(value) => formik.setFieldValue("identifier", value)}
           value={formik.values.identifier}
           error={Boolean(formik.errors.identifier)}

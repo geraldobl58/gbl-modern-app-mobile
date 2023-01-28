@@ -1,28 +1,15 @@
 import { Text, StyleSheet, View } from "react-native";
 
-import { Button } from "react-native-paper";
-
 import { userAuth } from "@hooks/useAuth";
 
 import { Auth } from "./Auth";
 
+import { AppRoutes } from "@routes/app.routes";
+
 export function Template() {
   const { auth, logout } = userAuth();
 
-  return (
-    <>
-      {auth ? (
-        <View style={styles.container}>
-          <Text>Usuário logado</Text>
-          <Button mode="contained" onPress={logout}>
-            Sair
-          </Button>
-        </View>
-      ) : (
-        <Auth />
-      )}
-    </>
-  );
+  return <>{auth ? <AppRoutes /> : <Auth />}</>;
 }
 
 const styles = StyleSheet.create({
