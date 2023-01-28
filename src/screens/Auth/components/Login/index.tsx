@@ -10,6 +10,8 @@ import * as Yup from "yup";
 
 import { userLogin } from "@services/user";
 
+import { userAuth } from "@hooks/useAuth";
+
 import { Content, Box, ButtonCustom } from "./styles";
 
 type LoginProps = {
@@ -21,6 +23,8 @@ export function Login({ changeScreen }: LoginProps) {
 
   const toast = useToast();
 
+  const { login } = userAuth();
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
@@ -28,7 +32,7 @@ export function Login({ changeScreen }: LoginProps) {
       setIsLoading(true);
       try {
         await userLogin(formData).then((response) => {
-          console.log(response.data);
+          login(response.data);
         });
       } catch (error) {
         setIsLoading(false);

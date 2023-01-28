@@ -1,22 +1,16 @@
-import { useState } from "react";
-
-import { Text } from "react-native";
-
 import { Provider as PaperProvider } from "react-native-paper";
 
 import { ThemeProvider } from "styled-components";
 
 import { ToastProvider } from "react-native-toast-notifications";
 
-import { Auth } from "@screens/Auth";
+import { Template } from "@screens/Template";
 
 import { AuthContextProvider } from "@contexts/AuthContext";
 
 import theme from "./src/theme";
 
 export default function App() {
-  const [auth, setAuth] = useState(undefined);
-
   return (
     <AuthContextProvider>
       <PaperProvider>
@@ -34,7 +28,7 @@ export default function App() {
             offsetBottom={40}
             swipeEnabled={true}
           >
-            {auth ? <Text>Usuário logado</Text> : <Auth />}
+            <Template />
           </ToastProvider>
         </ThemeProvider>
       </PaperProvider>
