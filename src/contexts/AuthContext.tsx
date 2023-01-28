@@ -1,6 +1,8 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 
-import { setToken } from "@utils/tokenHandle";
+import { getToken, setToken } from "@utils/tokenHandle";
+
+import jwtToken from "jwt-decode";
 
 type AuthContextDataProps = {
   auth: any;
@@ -19,8 +21,21 @@ export const AuthContext = createContext<AuthContextDataProps>(
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [auth, setAuth] = useState<any>(undefined);
 
+  const tokenAuth = async () => {
+    const token = await getToken();
+
+    if (token) {
+      setAuth({
+        token,
+        idUser: jwtToken(token),
+      });
+    } else {
+      setAuth(null);
+    }
+  };
+
   useEffect(() => {
-    setAuth(null as any);
+    tokenAuth();
   }, []);
 
   const login = (userData: any) => {

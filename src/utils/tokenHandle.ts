@@ -10,3 +10,15 @@ export async function setToken(token: string) {
     console.log(error);
   }
 }
+
+export async function getToken() {
+  try {
+    const token = await AsyncStorage.getItem(AUTH_TOKEN_STORAGE);
+
+    return token;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// AsyncStorage.removeItem(AUTH_TOKEN_STORAGE);
