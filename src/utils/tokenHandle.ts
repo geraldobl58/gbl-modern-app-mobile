@@ -21,4 +21,12 @@ export async function getToken() {
   }
 }
 
-// AsyncStorage.removeItem(AUTH_TOKEN_STORAGE);
+export async function removeToken() {
+  try {
+    await AsyncStorage.removeItem(AUTH_TOKEN_STORAGE);
+
+    return true;
+  } catch (error) {
+    console.log(error);
+  }
+}

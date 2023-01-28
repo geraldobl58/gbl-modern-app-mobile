@@ -1,13 +1,13 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 
-import { getToken, setToken } from "@utils/tokenHandle";
-
 import jwtToken from "jwt-decode";
 
+import { getToken, removeToken, setToken } from "@utils/tokenHandle";
+
 type AuthContextDataProps = {
-  auth: any;
-  login: (user: any) => any;
-  logout: () => null;
+  auth: undefined;
+  login: (user: string) => void;
+  logout: () => void;
 };
 
 type AuthContextProviderProps = {
@@ -20,6 +20,10 @@ export const AuthContext = createContext<AuthContextDataProps>(
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [auth, setAuth] = useState<any>(undefined);
+
+  useEffect(() => {
+    tokenAuth();
+  }, []);
 
   const tokenAuth = async () => {
     const token = await getToken();
@@ -34,10 +38,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   };
 
-  useEffect(() => {
-    tokenAuth();
-  }, []);
-
   const login = (userData: any) => {
     setToken(userData.jwt);
     setAuth({
@@ -46,11 +46,18 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     });
   };
 
+  const logout = () => {
+    if (auth) {
+      removeToken();
+      setAuth(null);
+    }
+  };
+
   const authData = useMemo(
     () => ({
       auth,
       login,
-      logout: () => null,
+      logout,
     }),
     [auth]
   );

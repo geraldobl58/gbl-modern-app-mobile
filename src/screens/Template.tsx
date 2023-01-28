@@ -1,11 +1,34 @@
-import { Text } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
+
+import { Button } from "react-native-paper";
 
 import { userAuth } from "@hooks/useAuth";
 
 import { Auth } from "./Auth";
 
 export function Template() {
-  const { auth } = userAuth();
+  const { auth, logout } = userAuth();
 
-  return <>{auth ? <Text>Usuário logado</Text> : <Auth />}</>;
+  return (
+    <>
+      {auth ? (
+        <View style={styles.container}>
+          <Text>Usuário logado</Text>
+          <Button mode="contained" onPress={logout}>
+            Sair
+          </Button>
+        </View>
+      ) : (
+        <Auth />
+      )}
+    </>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
