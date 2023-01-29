@@ -17,3 +17,12 @@ export async function userLogin(formData: FormData) {
   });
   return response;
 }
+
+export async function userMe(token: string) {
+  const response = await api.get(`/api/users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+}

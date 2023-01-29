@@ -5,7 +5,7 @@ import jwtToken from "jwt-decode";
 import { getToken, removeToken, setToken } from "@utils/tokenHandle";
 
 type AuthContextDataProps = {
-  auth: undefined;
+  auth: undefined | any;
   login: (user: string) => void;
   logout: () => void;
 };
